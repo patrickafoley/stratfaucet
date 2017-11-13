@@ -34,6 +34,7 @@ namespace stratfaucet
                 app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
                 {
                     HotModuleReplacement = true
+                
                 });
             }
             else
