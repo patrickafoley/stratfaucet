@@ -10,7 +10,7 @@
         <div *ngIf="formErrors.address" class="form-control-feedback">{{ formErrors.address }}</div>
       </div>
       <div class="row d-flex justify-content-center">
-          <button type="button" class="btn btn-darkgray btn-lg" [disabled]="!sendCoinForm.valid || isCreating" (click)="onSendClick()">Send</button>
+          <button type="button" class="btn btn-darkgray btn-lg" [disabled]="!sendCoinForm.valid" (click)="onSendClick()">Send</button>
         </div>
     </form>
   </div>

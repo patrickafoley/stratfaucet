@@ -9,7 +9,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 export class FaucetComponent {
 
     public balance: Balance;
-    private sendCoinForm: FormGroup;
+    public sendCoinForm: FormGroup;
 
     constructor(private http: Http, @Inject('BASE_URL') private baseUrl: string, private fb: FormBuilder) {
         http.get(baseUrl + 'api/Faucet/GetBalance').subscribe(result => {
@@ -29,7 +29,7 @@ export class FaucetComponent {
         });
     }
 
-    private onSendClick() {
+    public onSendClick() {
         if (this.sendCoinForm) {
             const data = new SendCoin(this.sendCoinForm.get('address').value)
             this.http
