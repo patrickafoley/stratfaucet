@@ -5,16 +5,21 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using BitcoinLib.Services.Coins.Cryptocoin;
+using stratfaucet.Lib;
 
 namespace stratfaucet.Controllers
 {
-     [Route("api/[controller]")]
+    [Route("api/[controller]")]
     public class FaucetController : Controller
     {
-
-        private static readonly ICryptocoinService CoinService = new CryptocoinService("http://localhost:26174", "u", "p", "", 3);
-
+        private WalletUtils walletUtils;
+        public FaucetController(IConfiguration config)
+        {
+            walletUtils = new WalletUtils(config);
+        }
+   
         public IActionResult Index()
         {
             return View();
@@ -28,14 +33,12 @@ namespace stratfaucet.Controllers
 
         [HttpGet("GetBalance")]
         public Balance GetBalance() {
-            var bal = CoinService.GetBalance();
-            return new Balance {
-                balance = bal
-            };
+            return walletUtils.GetBalance();
         }
 
-        public class Balance {
-           public decimal balance { get; set; } 
+        [HttpPost("SendCoin")]
+        public Transaction SendCoin([FromBody] Recipient address) {
+            return walletUtils.SendCoin(address);
         }
     }
 }

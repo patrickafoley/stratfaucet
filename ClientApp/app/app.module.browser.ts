@@ -7,7 +7,7 @@ import { AppComponent } from './components/app/app.component';
     bootstrap: [ AppComponent ],
     imports: [
         BrowserModule,
-        AppModuleShared
+        AppModuleShared,
     ],
     providers: [
         { provide: 'BASE_URL', useFactory: getBaseUrl }
