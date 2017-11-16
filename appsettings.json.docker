@@ -1,0 +1,20 @@
+{
+  "Logging": {
+    "IncludeScopes": false,
+    "Debug": {
+      "LogLevel": {
+        "Default": "Warning"
+      }
+    },
+    "Console": {
+      "LogLevel": {
+        "Default": "Warning"
+      }
+    }
+  },
+  "Faucet": {
+    "WalletURL": "http://localhost:26174",
+    "User": "<username>", 
+    "Password": "<password>"
+  }
+}

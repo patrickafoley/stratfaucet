@@ -8,26 +8,35 @@ RUN apt-get update \
 	 libdb++-dev \
 	 libboost-all-dev \
 	 libqrencode-dev  \
-	 libminiupnpc-dev 
+	 libminiupnpc-dev \
+	 lsof
 
-COPY stratis.conf /root/.stratis/stratis.conf
+COPY stratis.conf.docker /root/.stratis/stratis.conf
+COPY stratis.conf.docker /root/.stratis/testnet/stratis.conf
+COPY start.sh /
 
 # dotnet dependencies:
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN apt-get install -y nodejs
 
+# install stratisX
 RUN git clone https://github.com/stratisproject/stratisX.git \ 
 	&& cd stratisX/src \
 	&& make -f makefile.unix 
 
+# install stratfaucet 
 WORKDIR /
 
-RUN git clone https://github.com/patrickafoley/stratfaucet \
-	&& cd stratfaucet \
+RUN git clone https://github.com/patrickafoley/stratfaucet 
+
+COPY appsettings.json.docker /stratfaucet/appsettings.json 
+
+RUN cd stratfaucet \
 	&& npm install \
 	&& dotnet restore \
 	&& dotnet publish 
 
 EXPOSE 5000
 
-CMD /stratisX/src/stratisd \& ; cd /stratfaucet ; dotnet run 
+RUN chmod +x /start.sh
+CMD /start.sh
