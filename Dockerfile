@@ -1,5 +1,5 @@
 FROM microsoft/dotnet:2.0.0-sdk-jessie
-WORKDIR /stratisX
+WORKDIR /
 
 # StratX dependencies:
 RUN apt-get update \ 
@@ -9,6 +9,8 @@ RUN apt-get update \
 	 libboost-all-dev \
 	 libqrencode-dev  \
 	 libminiupnpc-dev 
+
+COPY stratis.conf /root/.stratis/stratis.conf
 
 # dotnet dependencies:
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
@@ -28,4 +30,4 @@ RUN git clone https://github.com/patrickafoley/stratfaucet \
 
 EXPOSE 5000
 
-CMD /stratisX/src/stratisd ; cd stratfaucet ; dotnet run 
+CMD /stratisX/src/stratisd \& ; cd /stratfaucet ; dotnet run 
