@@ -11,6 +11,7 @@ using stratfaucet.Lib;
 
 namespace stratfaucet.Controllers
 {
+    [Route("")]
     [Route("api/[controller]")]
     public class FaucetController : Controller
     {
@@ -19,12 +20,14 @@ namespace stratfaucet.Controllers
         {
             walletUtils = new WalletUtils(config);
         }
-   
+
+        [Route("/")]
         public IActionResult Index()
         {
             return View();
         }
 
+        [Route("/Error")]
         public IActionResult Error()
         {
             ViewData["RequestId"] = Activity.Current?.Id ?? HttpContext.TraceIdentifier;

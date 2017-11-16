@@ -75,6 +75,7 @@ namespace stratfaucet.Lib
             return null;
         }
 
+        // TODO put something in here to prevent abuse 
         private bool newRecipient(Recipient recipient) 
         {   
             return true;

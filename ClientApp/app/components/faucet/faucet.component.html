@@ -1,8 +1,9 @@
-<div class="faucet">
- <h1>Get TSTRAT</h1>
- <p>We have currently have {{this.balance.balance}} to share </p>
- <p>When you're done, you can return your TSTRAT back to us here {{this.balance.returnAddress}}</p>
- <div class="row d-flex justify-content-center">
+<div class="faucet col-sm-9">
+  <h1>Get TSTRAT</h1>
+    <p>This is a BETA. Please do not give me a lot of TSTRAT to share as they might get lost.</p>
+    <p>We have currently have {{ this.balance ? this.balance.balance : 0}} to share </p>
+    <p>When you're done, you can return your TSTRAT back here {{this.balance ? this.balance.returnAddress : "?"}}</p>
+  <div class="row d-flex justify-content-center">
     <form class="col-md-6 col-xs-12 text-left" [formGroup]="sendCoinForm">
       <div class="form-group">
         <label class="text-left" for="Address">Address</label>
@@ -10,8 +11,8 @@
         <div *ngIf="formErrors.address" class="form-control-feedback">{{ formErrors.address }}</div>
       </div>
       <div class="row d-flex justify-content-center">
-          <button type="button" class="btn btn-darkgray btn-lg" [disabled]="!sendCoinForm.valid" (click)="onSendClick()">Send</button>
-        </div>
+        <button type="button" class="btn btn-darkgray btn-lg" [disabled]="!sendCoinForm.valid" (click)="onSendClick()">Send</button>
+      </div>
     </form>
   </div>
 </div>

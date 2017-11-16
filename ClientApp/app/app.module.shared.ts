@@ -6,19 +6,15 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
-import { HomeComponent } from './components/home/home.component';
-import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
-import { CounterComponent } from './components/counter/counter.component';
 import { FaucetComponent } from './components/faucet/faucet.component';
+import { AboutComponent } from './components/about/about.component'
 
 @NgModule({
     declarations: [
         AppComponent,
         NavMenuComponent,
-        CounterComponent,
-        FetchDataComponent,
-        FaucetComponent,
-        HomeComponent
+        FaucetComponent, 
+        AboutComponent
     ],
     imports: [
         CommonModule,
@@ -26,12 +22,10 @@ import { FaucetComponent } from './components/faucet/faucet.component';
         FormsModule,
         ReactiveFormsModule,
         RouterModule.forRoot([
-            { path: '', redirectTo: 'home', pathMatch: 'full' },
-            { path: 'home', component: HomeComponent },
-            { path: 'counter', component: CounterComponent },
-            { path: 'fetch-data', component: FetchDataComponent },
+            { path: '', redirectTo: 'faucet', pathMatch: 'full' },
             { path: 'faucet', component: FaucetComponent},
-            { path: '**', redirectTo: 'home' }
+            { path: 'about', component: AboutComponent },
+            { path: '**', redirectTo: 'faucet' }
         ])
     ]
 })
