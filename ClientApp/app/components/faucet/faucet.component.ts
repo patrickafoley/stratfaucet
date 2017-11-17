@@ -10,6 +10,7 @@ export class FaucetComponent {
 
     public balance: Balance;
     public sendCoinForm: FormGroup;
+    public transaction: Transaction;
 
     constructor(private http: Http, @Inject('BASE_URL') private baseUrl: string, private fb: FormBuilder) {
         http.get(baseUrl + 'api/Faucet/GetBalance').subscribe(result => {
@@ -34,7 +35,8 @@ export class FaucetComponent {
             const data = new SendCoin(this.sendCoinForm.get('address').value)
             this.http
             .post(this.baseUrl + 'api/Faucet/SendCoin', data).subscribe(result => {
-                console.log("SENT!" + result );
+                this.transaction = result.json() as Transaction;
+                this.sendCoinForm.setValue({address: ""})
             }, error => console.error(error))
         }
     }

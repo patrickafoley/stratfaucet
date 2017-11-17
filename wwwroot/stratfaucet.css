@@ -5,3 +5,7 @@ body {
 .navbar a:focus, .navbar a:hover{
     color:black !important;
  }
+
+ .btn {
+     border: 1px solid black;
+ }
