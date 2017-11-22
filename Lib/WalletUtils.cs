@@ -18,7 +18,11 @@ namespace stratfaucet.Lib
 
         private String apiUrl;
 
-        private int port;
+        private string password; 
+
+        private string accountName; 
+
+        private string walletName; 
 
         private IStratisWalletAPI stratApi;
 
@@ -26,10 +30,12 @@ namespace stratfaucet.Lib
         public WalletUtils(IConfiguration config)
         {
             _config = config;
-            apiUrl = (_config["Faucet:FullNodeApiUrl"] != null ? _config["Faucet:FullNodeApiUrl"] : "http://127.0.0.1");
-            port = Int32.Parse((_config["Faucet:FullNodeApiPort"] != null ? _config["Faucet:FullNodeApiPort"] : "37220"));
+            apiUrl = (_config["Faucet:FullNodeApiUrl"] != null ? _config["Faucet:FullNodeApiUrl"] : "http://127.0.0.1:37220");
+            password = _config["Faucet:FullNodePassword"];
+            accountName = _config["Faucet:FullNodeAccountName"];
+            walletName = _config["Faucet:FullNodeWalletName"];
 
-            stratApi = RestService.For<IStratisWalletAPI>(apiUrl + ":" + port,
+            stratApi = RestService.For<IStratisWalletAPI>(apiUrl,
             new RefitSettings
             {
             }
@@ -39,8 +45,8 @@ namespace stratfaucet.Lib
         {
             try
             {
-                var bal = await stratApi.GetBalance("testwallet");
-                var address = await stratApi.GetUnusedAddress("testwallet", "account 0", 0);
+                var bal = await stratApi.GetBalance(walletName);
+                var address = await stratApi.GetUnusedAddress(walletName, accountName, 0);
                 return new Balance
                 {
                     balance = (bal.BalancesList.First().AmountConfirmed / coinDivisor),
@@ -61,10 +67,10 @@ namespace stratfaucet.Lib
             var amount = (await GetBalance()).balance / 100;
         
             BuildTransaction buildTransaction = new BuildTransaction{
-                WalletName = "testwallet",
-                AccountName = "account 0",
+                WalletName = walletName,
+                AccountName = accountName,
                 CoinType = 1, 
-                Password = "123456",
+                Password = password,
                 DestinationAddress = recipient.address,
                 Amount = amount.ToString(), 
                 FeeType = "low",

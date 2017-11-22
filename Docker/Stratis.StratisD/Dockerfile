@@ -1,7 +1,5 @@
 FROM microsoft/dotnet:2.0.0-sdk-jessie
 
-MAINTAINER Dan Gershony - Stratis Platform <dan.gershony@stratisplatform.com>
-
 RUN git clone https://github.com/stratisproject/StratisBitcoinFullNode.git \
     && cd /StratisBitcoinFullNode/src/Stratis.StratisD \
     && dotnet restore \
@@ -11,8 +9,8 @@ VOLUME /root/.stratisbitcoin
 
 WORKDIR /StratisBitcoinFullNode/src/Stratis.StratisD
 
-COPY stratis.conf.docker /root/.stratisnode/stratis/Main/stratis.conf
+COPY stratis.conf.docker /root/.stratisnode/stratis/StratisTest/stratis.conf
 
-EXPOSE 8333 8332 18333 18332
+EXPOSE 8333 8332 18333 18332 37220
 
-CMD ["dotnet", "run"]
+CMD ["dotnet", "run", "stratis", "-testnet"]
