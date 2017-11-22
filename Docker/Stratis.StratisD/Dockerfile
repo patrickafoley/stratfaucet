@@ -1,0 +1,18 @@
+FROM microsoft/dotnet:2.0.0-sdk-jessie
+
+MAINTAINER Dan Gershony - Stratis Platform <dan.gershony@stratisplatform.com>
+
+RUN git clone https://github.com/stratisproject/StratisBitcoinFullNode.git \
+    && cd /StratisBitcoinFullNode/src/Stratis.StratisD \
+    && dotnet restore \
+	&& dotnet build
+	
+VOLUME /root/.stratisbitcoin
+
+WORKDIR /StratisBitcoinFullNode/src/Stratis.StratisD
+
+COPY stratis.conf.docker /root/.stratisnode/stratis/Main/stratis.conf
+
+EXPOSE 8333 8332 18333 18332
+
+CMD ["dotnet", "run"]

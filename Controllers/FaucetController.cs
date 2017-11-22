@@ -15,7 +15,7 @@ namespace stratfaucet.Controllers
     [Route("api/[controller]")]
     public class FaucetController : Controller
     {
-        private WalletUtils walletUtils;
+        private IWalletUtils walletUtils;
         public FaucetController(IConfiguration config)
         {
             walletUtils = new WalletUtils(config);
@@ -35,13 +35,13 @@ namespace stratfaucet.Controllers
         }
 
         [HttpGet("GetBalance")]
-        public Balance GetBalance() {
-            return walletUtils.GetBalance();
+        public async Task<Balance> GetBalance() {
+            return await walletUtils.GetBalance();
         }
 
         [HttpPost("SendCoin")]
-        public Transaction SendCoin([FromBody] Recipient address) {
-            return walletUtils.SendCoin(address);
+        public async Task<Transaction> SendCoin([FromBody] Recipient address) {
+            return await walletUtils.SendCoin(address);
         }
     }
 }
