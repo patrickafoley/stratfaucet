@@ -236,3 +236,4 @@ _Pvt_Extensions
 # FAKE - F# Make
 .fake/
 stratis.conf
+.DS_Store
