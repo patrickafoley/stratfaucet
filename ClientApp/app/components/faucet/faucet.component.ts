@@ -2,12 +2,13 @@ import { Component, Inject } from '@angular/core';
 import { Http } from '@angular/http';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
+export declare var grecaptcha:any;
+
 @Component({
     selector: 'faucet',
     templateUrl: './faucet.component.html'
 })
 export class FaucetComponent {
-
     public balance: Balance;
     public sendCoinForm: FormGroup;
     public transaction: Transaction;
@@ -31,22 +32,28 @@ export class FaucetComponent {
     }
 
     public onSendClick() {
-        if (this.sendCoinForm) {
-            const data = new SendCoin(this.sendCoinForm.get('address').value)
+        let captcha = grecaptcha.getResponse();
+        if (this.sendCoinForm && captcha.length > 0) {
+            const data = new SendCoin(this.sendCoinForm.get('address').value, captcha)
             this.http
             .post(this.baseUrl + 'api/Faucet/SendCoin', data).subscribe(result => {
                 this.transaction = result.json() as Transaction;
                 this.sendCoinForm.setValue({address: ""})
-            }, error => console.error(error))
+            }, error => {
+
+              alert(error.json().message);
+            })
         }
     }
 }
 
 class SendCoin {
-    constructor(address: string) {
+    constructor(address: string, captcha: string) {
         this.address = address;
+        this.captcha = captcha;
     }
     address: string;
+    captcha: string;
 }
 
 class Balance {
@@ -54,6 +61,6 @@ class Balance {
     returnAddress: string;
 }
 
-class Transaction { 
-    confirmation: string; 
+class Transaction {
+    transactionId: string;
 }

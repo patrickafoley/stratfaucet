@@ -13,7 +13,7 @@ import { AboutComponent } from './components/about/about.component'
     declarations: [
         AppComponent,
         NavMenuComponent,
-        FaucetComponent, 
+        FaucetComponent,
         AboutComponent
     ],
     imports: [

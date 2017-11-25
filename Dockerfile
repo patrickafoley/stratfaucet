@@ -5,17 +5,17 @@ WORKDIR /
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN apt-get install -y nodejs
 
-# install stratfaucet 
+# install stratfaucet
 WORKDIR /
 
-RUN git clone https://github.com/patrickafoley/stratfaucet 
+RUN git clone https://github.com/patrickafoley/stratfaucet
 
-COPY appsettings.json.docker /stratfaucet/appsettings.json 
+COPY appsettings.json.docker /stratfaucet/appsettings.json
 
 RUN cd stratfaucet \
-	&& npm install \
-	&& dotnet restore \
-	&& dotnet publish 
+  && npm install \
+  && dotnet restore \
+  && dotnet publish
 
 EXPOSE 5000
-CMD cd /stratfaucet ; dotnet run 
+CMD cd /stratfaucet ; dotnet run

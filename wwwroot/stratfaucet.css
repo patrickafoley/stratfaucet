@@ -1,5 +1,5 @@
 body {
-    font-family:  "Open Sans", Helvetica, Arial, sans-serif;    
+    font-family:  "Open Sans", Helvetica, Arial, sans-serif;
 }
 
 .navbar a:focus, .navbar a:hover{
@@ -7,5 +7,10 @@ body {
  }
 
  .btn {
-     border: 1px solid black;
+    border: 1px solid black;
+    margin: 5px;
+ }
+
+ input {
+   margin: 5px;
  }

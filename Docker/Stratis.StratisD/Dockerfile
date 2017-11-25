@@ -3,8 +3,8 @@ FROM microsoft/dotnet:2.0.0-sdk-jessie
 RUN git clone https://github.com/stratisproject/StratisBitcoinFullNode.git \
     && cd /StratisBitcoinFullNode/src/Stratis.StratisD \
     && dotnet restore \
-	&& dotnet build
-	
+  && dotnet build
+
 VOLUME /root/.stratisbitcoin
 
 WORKDIR /StratisBitcoinFullNode/src/Stratis.StratisD

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using stratfaucet.Lib;
 
 namespace stratfaucet
 {
@@ -23,7 +24,7 @@ namespace stratfaucet
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-           
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,7 +36,7 @@ namespace stratfaucet
                 app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
                 {
                     HotModuleReplacement = true
-                
+
                 });
             }
             else
@@ -45,18 +46,17 @@ namespace stratfaucet
 
             app.UseStaticFiles();
 
-            // app.UseMvc(routes =>
-            // {
-            //     routes.MapRoute(
-            //         name: "default",
-            //         template: "{controller=Faucet}/{action=Index}");
+            app.UseMvc(routes =>
+            {
+                routes.MapSpaFallbackRoute(
+                    name: "spa-fallback",
+                    defaults: new { controller = "Home", action = "Index" });
 
-            //     routes.MapSpaFallbackRoute(
-            //         name: "spa-fallback",
-            //         defaults: new { controller = "Faucet", action = "Index" });
-            // });
+            });
 
-            app.UseMvcWithDefaultRoute();
+              Throttling.Init();
+              JobExecutor.Init(new WalletUtils(Configuration));
+
         }
     }
 }

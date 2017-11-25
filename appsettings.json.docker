@@ -13,12 +13,10 @@
     }
   },
   "Faucet": {
-    "WalletURL": "http://wallet:26174",
-    "User": "<username>", 
-    "Password": "<password>"
     "FullNodeApiurl": "http://0.0.0.0:37220",
     "FullNodePassword": "<password>",
     "FullNodeAccountName": "account 0",
-    "FullNodeWalletName": "testwallet"
+    "FullNodeWalletName": "testwallet",
+     "ReCaptchaSecret": "<secret>"
   }
 }

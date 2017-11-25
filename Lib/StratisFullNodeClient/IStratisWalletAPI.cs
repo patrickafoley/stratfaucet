@@ -11,10 +11,6 @@ namespace stratfaucet
         [Get("/api/wallet/balance?walletname={walletname}&cointype={cointype}")]
         Task<response.Balances> GetBalance(string walletname, int cointype = 0);
 
-        [Post("/api/wallet/create")]
-        Task<String> CreateWallet([Body] CreateWallet createWallet);
-
-
         [Post("/api/wallet/build-transaction")]
         Task<response.Transaction> BuildTransaction([Body] BuildTransaction createWallet);
 

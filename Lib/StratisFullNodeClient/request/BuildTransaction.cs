@@ -33,7 +33,7 @@ namespace stratfaucet
 
 
             [JsonProperty("amount")]
-            public string Amount { get; set; }
+            public decimal Amount { get; set; }
 
 
             [JsonProperty("feeType")]
