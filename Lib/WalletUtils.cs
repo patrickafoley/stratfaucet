@@ -132,6 +132,8 @@ namespace stratfaucet.Lib
                 recipient.errorCount = 999;
                 recipient.errorText = ERROR_DUPE;
             }
+
+            return recipient;
         }
         public bool newRecipient(Recipient recipient)
         {
